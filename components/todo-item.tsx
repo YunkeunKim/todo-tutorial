@@ -20,6 +20,19 @@ interface TodoItemProps {
   onEdit: (id: string, text: string) => void;
 }
 
+function MetaBadge({ label, badgeClass }: { label: string; badgeClass: string }) {
+  return (
+    <span
+      className={cn(
+        "shrink-0 rounded-full border px-2 py-0.5 text-[0.625rem] font-medium leading-none",
+        badgeClass
+      )}
+    >
+      {label}
+    </span>
+  );
+}
+
 export function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(todo.text);
@@ -99,24 +112,10 @@ export function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
       )}
 
       {category && (
-        <span
-          className={cn(
-            "shrink-0 rounded-full border px-2 py-0.5 text-[0.625rem] font-medium leading-none",
-            category.badgeClass
-          )}
-        >
-          {category.label}
-        </span>
+        <MetaBadge label={category.label} badgeClass={category.badgeClass} />
       )}
 
-      <span
-        className={cn(
-          "shrink-0 rounded-full border px-2 py-0.5 text-[0.625rem] font-medium leading-none",
-          priority.badgeClass
-        )}
-      >
-        {priority.label}
-      </span>
+      <MetaBadge label={priority.label} badgeClass={priority.badgeClass} />
 
       <Button
         type="button"
